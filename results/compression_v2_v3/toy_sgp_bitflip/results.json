@@ -1,0 +1,209 @@
+{
+  "script_version": "v3",
+  "config": {
+    "preset": "toy",
+    "form": "sgp",
+    "n_train": 1000,
+    "n_test": 200,
+    "latents": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "hidden": [
+      256,
+      128
+    ],
+    "epochs": 50,
+    "batch": 64,
+    "beta": 1.0,
+    "lr": 0.001,
+    "activation": "relu",
+    "val_split": 0.1,
+    "tag": "bitflip",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "n_msgs": 20,
+    "perkey_keys": 3,
+    "perkey_repeats": 256,
+    "perkey_epochs": 50,
+    "timing_runs": 50,
+    "keygen_runs": 10,
+    "selftest": 100,
+    "bitflip_levels": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "bitflip_msgs": 200,
+    "skip_vae": true,
+    "out": "results",
+    "m": 6,
+    "n": 64,
+    "t": 4
+  },
+  "environment": {
+    "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "numpy": "2.1.3",
+    "tensorflow": "2.21.0"
+  },
+  "code": {
+    "k": 40,
+    "public_key_shape": [
+      40,
+      64
+    ],
+    "public_key_bits": 2560,
+    "public_key_bytes": 320.0,
+    "public_key_KiB": 0.3125,
+    "selftest_success": "100/100"
+  },
+  "timing": {
+    "keygen_ms": {
+      "mean": 9.57097809998686,
+      "std": 3.5884439293010693,
+      "ci95": 2.2241405901895397,
+      "n": 10
+    },
+    "encrypt_ms": {
+      "mean": 0.04944889998569124,
+      "std": 0.021681096632631118,
+      "ci95": 0.006009693377377759,
+      "n": 50
+    },
+    "decrypt_ms": {
+      "mean": 0.5746988799910469,
+      "std": 0.05695895138634179,
+      "ci95": 0.015788215823626415,
+      "n": 50
+    }
+  },
+  "bitflip_sensitivity": [
+    {
+      "flipped_bits": 0,
+      "n_messages": 200,
+      "dfr": 0.0,
+      "dfr_ci95": 0.0,
+      "decoding_failure_detected": 0.0,
+      "wrong_plaintext_undetected": 0.0
+    },
+    {
+      "flipped_bits": 1,
+      "n_messages": 200,
+      "dfr": 0.475,
+      "dfr_ci95": 0.06920978976994512,
+      "decoding_failure_detected": 0.455,
+      "wrong_plaintext_undetected": 0.02
+    },
+    {
+      "flipped_bits": 2,
+      "n_messages": 200,
+      "dfr": 0.655,
+      "dfr_ci95": 0.06588268209476598,
+      "decoding_failure_detected": 0.625,
+      "wrong_plaintext_undetected": 0.03
+    },
+    {
+      "flipped_bits": 4,
+      "n_messages": 200,
+      "dfr": 0.875,
+      "dfr_ci95": 0.04583530298798078,
+      "decoding_failure_detected": 0.855,
+      "wrong_plaintext_undetected": 0.02
+    },
+    {
+      "flipped_bits": 8,
+      "n_messages": 200,
+      "dfr": 0.97,
+      "dfr_ci95": 0.023642182640357057,
+      "decoding_failure_detected": 0.92,
+      "wrong_plaintext_undetected": 0.05
+    },
+    {
+      "flipped_bits": 16,
+      "n_messages": 200,
+      "dfr": 1.0,
+      "dfr_ci95": 0.0,
+      "decoding_failure_detected": 0.955,
+      "wrong_plaintext_undetected": 0.045
+    },
+    {
+      "flipped_bits": 32,
+      "n_messages": 200,
+      "dfr": 1.0,
+      "dfr_ci95": 0.0,
+      "decoding_failure_detected": 0.955,
+      "wrong_plaintext_undetected": 0.045
+    },
+    {
+      "flipped_bits": 64,
+      "n_messages": 200,
+      "dfr": 1.0,
+      "dfr_ci95": 0.0,
+      "decoding_failure_detected": 0.965,
+      "wrong_plaintext_undetected": 0.035
+    }
+  ],
+  "decoder_size_analytical": [
+    {
+      "latent_dim": 16,
+      "params": 693120,
+      "MiB_float32": 2.64404296875,
+      "public_key_KiB": 0.3125
+    },
+    {
+      "latent_dim": 32,
+      "params": 695168,
+      "MiB_float32": 2.65185546875,
+      "public_key_KiB": 0.3125
+    },
+    {
+      "latent_dim": 64,
+      "params": 699264,
+      "MiB_float32": 2.66748046875,
+      "public_key_KiB": 0.3125
+    },
+    {
+      "latent_dim": 128,
+      "params": 707456,
+      "MiB_float32": 2.69873046875,
+      "public_key_KiB": 0.3125
+    }
+  ],
+  "baseline_compressors": {
+    "gzip-9": {
+      "mean": 0.932944606413994,
+      "std": 1.1390647892519134e-16,
+      "ci95": 4.9921715471057503e-17,
+      "n": 20
+    },
+    "bzip2-9": {
+      "mean": 0.6616654734389453,
+      "std": 0.0045655573266653714,
+      "ci95": 0.0020009437213688126,
+      "n": 20
+    },
+    "lzma-9": {
+      "mean": 0.8421052631578945,
+      "std": 2.278129578503827e-16,
+      "ci95": 9.984343094211501e-17,
+      "n": 20
+    }
+  },
+  "generalisation": [],
+  "generalisation_summary_over_runs": [],
+  "training_logs": [],
+  "compression_ratios": [],
+  "per_key": []
+}

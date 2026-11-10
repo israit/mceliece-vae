@@ -1,0 +1,352 @@
+{
+  "script_version": "keygen_SP_v1",
+  "config": {
+    "m": 6,
+    "n": 64,
+    "t": 4,
+    "n_train": 2000,
+    "n_gen": 1000,
+    "latents": [
+      16,
+      64
+    ],
+    "hidden": [
+      256,
+      128
+    ],
+    "epochs": 50,
+    "batch": 64,
+    "beta": 1.0,
+    "lr": 0.001,
+    "seed": 0,
+    "profile_runs": 20,
+    "skip_vae": false,
+    "out": "results/keygen_SP_v1"
+  },
+  "environment": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+    "numpy": "2.5.4",
+    "tensorflow": "2.21.0"
+  },
+  "keygen_profile": [
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "field_and_support",
+      "time_ms_mean": 0.031780003337189555,
+      "time_ms_sd": 0.012893095434187579,
+      "share_percent_mean": 0.6571164774705942,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "goppa_polynomial",
+      "time_ms_mean": 2.6466599898412824,
+      "time_ms_sd": 1.8482949344416935,
+      "share_percent_mean": 48.36677155251535,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "parity_check_matrix",
+      "time_ms_mean": 0.17320001497864723,
+      "time_ms_sd": 0.033145180400458864,
+      "share_percent_mean": 3.6120101317549524,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "gaussian_elimination",
+      "time_ms_mean": 0.2951699949335307,
+      "time_ms_sd": 0.030404490335395568,
+      "share_percent_mean": 6.24415676074795,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "S_generation",
+      "time_ms_mean": 1.43285000231117,
+      "time_ms_sd": 0.9947473060679863,
+      "share_percent_mean": 29.251875250395603,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "S_inverse",
+      "time_ms_mean": 0.4761950171086937,
+      "time_ms_sd": 0.13570816811895056,
+      "share_percent_mean": 9.982391872575565,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "P_generation",
+      "time_ms_mean": 0.012714992044493556,
+      "time_ms_sd": 0.0064312163704643485,
+      "share_percent_mean": 0.25127261392806177,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "public_key_SGP",
+      "time_ms_mean": 0.07948999991640449,
+      "time_ms_sd": 0.02878749151043837,
+      "share_percent_mean": 1.634405340611918,
+      "runs": 20
+    },
+    {
+      "parameter_set": "toy",
+      "form": "sgp",
+      "step": "TOTAL",
+      "time_ms_mean": 5.148060014471412,
+      "time_ms_sd": 1.6812036447554524,
+      "share_percent_mean": 100.0,
+      "runs": 20,
+      "goppa_attempts_mean": 3.8
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "field_and_support",
+      "time_ms_mean": 0.5389000289142132,
+      "time_ms_sd": 0.06814955969221186,
+      "share_percent_mean": 0.027177011339977238,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "goppa_polynomial",
+      "time_ms_mean": 728.4840333353108,
+      "time_ms_sd": 380.8023825356511,
+      "share_percent_mean": 34.94855576035366,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "parity_check_matrix",
+      "time_ms_mean": 4.705299972556531,
+      "time_ms_sd": 1.0626072258163062,
+      "share_percent_mean": 0.23733605651130443,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "gaussian_elimination",
+      "time_ms_mean": 84.84293338066588,
+      "time_ms_sd": 3.296641237656602,
+      "share_percent_mean": 4.247267355256915,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "S_generation",
+      "time_ms_mean": 138.41583335306495,
+      "time_ms_sd": 149.9694953776143,
+      "share_percent_mean": 7.342909743690806,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "S_inverse",
+      "time_ms_mean": 91.40563333251824,
+      "time_ms_sd": 6.308529529999636,
+      "share_percent_mean": 4.57155014080618,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "P_generation",
+      "time_ms_mean": 0.06343335068474214,
+      "time_ms_sd": 0.011336824040101145,
+      "share_percent_mean": 0.0031767342776918644,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "public_key_SGP",
+      "time_ms_mean": 971.6531333203117,
+      "time_ms_sd": 8.76668206030083,
+      "share_percent_mean": 48.62202719776346,
+      "runs": 3
+    },
+    {
+      "parameter_set": "McEliece 1978",
+      "form": "sgp",
+      "step": "TOTAL",
+      "time_ms_mean": 2020.109200074027,
+      "time_ms_sd": 269.08792939782916,
+      "share_percent_mean": 100.0,
+      "runs": 3,
+      "goppa_attempts_mean": 28.666666666666668
+    },
+    {
+      "parameter_set": "mceliece348864",
+      "form": "systematic",
+      "step": "field_and_support",
+      "time_ms_mean": 5.299450014717877,
+      "time_ms_sd": 0.09595437998851107,
+      "share_percent_mean": 0.1327310793220003,
+      "runs": 2
+    },
+    {
+      "parameter_set": "mceliece348864",
+      "form": "systematic",
+      "step": "goppa_polynomial",
+      "time_ms_mean": 3224.6440000017174,
+      "time_ms_sd": 1458.6812451248975,
+      "share_percent_mean": 74.72851433621727,
+      "runs": 2
+    },
+    {
+      "parameter_set": "mceliece348864",
+      "form": "systematic",
+      "step": "parity_check_matrix",
+      "time_ms_mean": 11.877549986820668,
+      "time_ms_sd": 0.08492351252561003,
+      "share_percent_mean": 0.29878068827150617,
+      "runs": 2
+    },
+    {
+      "parameter_set": "mceliece348864",
+      "form": "systematic",
+      "step": "gaussian_elimination",
+      "time_ms_mean": 953.5568000283092,
+      "time_ms_sd": 16.0221911390478,
+      "share_percent_mean": 24.026474223392086,
+      "runs": 2
+    },
+    {
+      "parameter_set": "mceliece348864",
+      "form": "systematic",
+      "step": "systematic_public_key",
+      "time_ms_mean": 33.867100020870566,
+      "time_ms_sd": 8.672381845247541,
+      "share_percent_mean": 0.8134996727971424,
+      "runs": 2
+    },
+    {
+      "parameter_set": "mceliece348864",
+      "form": "systematic",
+      "step": "TOTAL",
+      "time_ms_mean": 4229.244900052436,
+      "time_ms_sd": 1451.34246669856,
+      "share_percent_mean": 100.0,
+      "runs": 2,
+      "goppa_attempts_mean": 85.0
+    }
+  ],
+  "csprng_baseline": {
+    "uniform_random_kxk_invertible_fraction": 0.297,
+    "csprng_S": {
+      "n_samples": 1000,
+      "unique_fraction": 1.0,
+      "min_entropy_bits_estimate": 9.965784284662087,
+      "max_entropy_bits_possible_with_n_samples": 9.965784284662087,
+      "memorised_fraction": 0.0,
+      "bit_bias": 0.012794375000000009
+    },
+    "csprng_P": {
+      "n_samples": 1000,
+      "unique_fraction": 1.0,
+      "min_entropy_bits_estimate": 9.965784284662087,
+      "max_entropy_bits_possible_with_n_samples": 9.965784284662087,
+      "memorised_fraction": 0.0,
+      "chi2_position_uniformity_p": 0.9987855858178121
+    },
+    "csprng_S_time_ms": 1.620873500360176,
+    "csprng_P_time_ms": 0.0056629994651302695
+  },
+  "vae_SP": [
+    {
+      "latent_dim": 16,
+      "component": "S",
+      "train_size": 2000,
+      "epochs": 50,
+      "final_loss": 1106.4432373046875,
+      "decoder_ms_per_sample": 3.023733999580145,
+      "decoder_params": 446400,
+      "valid_fraction_raw": 0.749,
+      "valid_n_samples": 749,
+      "valid_unique_fraction": 0.15353805073431243,
+      "valid_min_entropy_bits_estimate": 0.2961564760085024,
+      "valid_max_entropy_bits_possible_with_n_samples": 9.54882190845875,
+      "valid_memorised_fraction": 0.0,
+      "bit_bias": 0.49362750000000005,
+      "vae_ms_per_valid_S": 3.6471600004006177
+    },
+    {
+      "latent_dim": 16,
+      "component": "P",
+      "train_size": 2000,
+      "epochs": 50,
+      "final_loss": 275.16741943359375,
+      "decoder_ms_per_sample": 2.9190400009974837,
+      "decoder_params": 1087872,
+      "valid_fraction_raw": 0.0,
+      "projected_n_samples": 1000,
+      "projected_unique_fraction": 0.994,
+      "projected_min_entropy_bits_estimate": 7.158429362604483,
+      "projected_max_entropy_bits_possible_with_n_samples": 9.965784284662087,
+      "projected_memorised_fraction": 0.007,
+      "projected_chi2_position_uniformity_p": 0.0,
+      "vae_ms_per_projected_P": 3.9307200000621383
+    },
+    {
+      "latent_dim": 64,
+      "component": "S",
+      "train_size": 2000,
+      "epochs": 50,
+      "final_loss": 1106.42431640625,
+      "decoder_ms_per_sample": 3.3395240013487637,
+      "decoder_params": 452544,
+      "valid_fraction_raw": 0.065,
+      "valid_n_samples": 65,
+      "valid_unique_fraction": 0.9538461538461539,
+      "valid_min_entropy_bits_estimate": 4.437405312307298,
+      "valid_max_entropy_bits_possible_with_n_samples": 6.022367813028454,
+      "valid_memorised_fraction": 0.0,
+      "bit_bias": 0.49467187500000004,
+      "vae_ms_per_valid_S": 35.141574998851866
+    },
+    {
+      "latent_dim": 64,
+      "component": "P",
+      "train_size": 2000,
+      "epochs": 50,
+      "final_loss": 315.1630554199219,
+      "decoder_ms_per_sample": 3.4030099981464446,
+      "decoder_params": 1094016,
+      "valid_fraction_raw": 0.0,
+      "projected_n_samples": 1000,
+      "projected_unique_fraction": 1.0,
+      "projected_min_entropy_bits_estimate": 9.965784284662087,
+      "projected_max_entropy_bits_possible_with_n_samples": 9.965784284662087,
+      "projected_memorised_fraction": 0.0,
+      "projected_chi2_position_uniformity_p": 0.0,
+      "vae_ms_per_projected_P": 4.139730002498254
+    }
+  ],
+  "end_to_end_vae_SP_keys": {
+    "latent_dim": 16,
+    "keys_built": 20,
+    "keys_fully_correct": 20,
+    "messages_correct": 1000,
+    "messages_total": 1000
+  }
+}

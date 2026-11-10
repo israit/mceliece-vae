@@ -1,0 +1,65 @@
+[
+ {
+  "batch": 60,
+  "last_batch_size": 0,
+  "seed": 0,
+  "exact": 0,
+  "median_abs_output_minus_half": 0.00747305154800415
+ },
+ {
+  "batch": 60,
+  "last_batch_size": 0,
+  "seed": 1,
+  "exact": 0,
+  "median_abs_output_minus_half": 0.007303118705749512
+ },
+ {
+  "batch": 60,
+  "last_batch_size": 0,
+  "seed": 2,
+  "exact": 0,
+  "median_abs_output_minus_half": 0.0070040225982666016
+ },
+ {
+  "batch": 64,
+  "last_batch_size": 4,
+  "seed": 0,
+  "exact": 4,
+  "median_abs_output_minus_half": 0.010106503963470459
+ },
+ {
+  "batch": 64,
+  "last_batch_size": 4,
+  "seed": 1,
+  "exact": 4,
+  "median_abs_output_minus_half": 0.009258940815925598
+ },
+ {
+  "batch": 64,
+  "last_batch_size": 4,
+  "seed": 2,
+  "exact": 4,
+  "median_abs_output_minus_half": 0.009665071964263916
+ },
+ {
+  "batch": 88,
+  "last_batch_size": 20,
+  "seed": 0,
+  "exact": 0,
+  "median_abs_output_minus_half": 0.0055718570947647095
+ },
+ {
+  "batch": 88,
+  "last_batch_size": 20,
+  "seed": 1,
+  "exact": 3,
+  "median_abs_output_minus_half": 0.007322788238525391
+ },
+ {
+  "batch": 88,
+  "last_batch_size": 20,
+  "seed": 2,
+  "exact": 5,
+  "median_abs_output_minus_half": 0.009080350399017334
+ }
+]

@@ -1,0 +1,5 @@
+latent_dim,component,train_size,epochs,final_loss,decoder_ms_per_sample,decoder_params,valid_fraction_raw,valid_n_samples,valid_unique_fraction,valid_min_entropy_bits_estimate,valid_max_entropy_bits_possible_with_n_samples,valid_memorised_fraction,bit_bias,vae_ms_per_valid_S,projected_chi2_position_uniformity_p,projected_max_entropy_bits_possible_with_n_samples,projected_n_samples,vae_ms_per_projected_P,projected_unique_fraction,projected_memorised_fraction,projected_min_entropy_bits_estimate
+16,S,2000,50,1106.4432373046875,3.023733999580145,446400,0.749,749,0.15353805073431243,0.2961564760085024,9.54882190845875,0.0,0.49362750000000005,3.6471600004006177,,,,,,,
+16,P,2000,50,275.16741943359375,2.9190400009974837,1087872,0.0,,,,,,,,0.0,9.965784284662087,1000,3.9307200000621383,0.994,0.007,7.158429362604483
+64,S,2000,50,1106.42431640625,3.3395240013487637,452544,0.065,65,0.9538461538461539,4.437405312307298,6.022367813028454,0.0,0.49467187500000004,35.141574998851866,,,,,,,
+64,P,2000,50,315.1630554199219,3.4030099981464446,1094016,0.0,,,,,,,,0.0,9.965784284662087,1000,4.139730002498254,1.0,0.0,9.965784284662087

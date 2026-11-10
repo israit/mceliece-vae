@@ -1,0 +1,116 @@
+{
+ "n_train": 900,
+ "n_distinct": 900,
+ "repeated_groups": [],
+ "runs": {
+  "VAE beta=1 ReLU, seed 0": {
+   "exact_indices": [
+    138,
+    453,
+    571,
+    837
+   ],
+   "hamming_of_others_mean": 1245.4966517857142
+  },
+  "VAE beta=1 ReLU, seed 1": {
+   "exact_indices": [
+    32,
+    317,
+    387,
+    877
+   ],
+   "hamming_of_others_mean": 1245.4832589285713
+  },
+  "VAE beta=1 ReLU, seed 2": {
+   "exact_indices": [
+    135,
+    277,
+    653,
+    704
+   ],
+   "hamming_of_others_mean": 1245.6060267857142
+  },
+  "beta=0, seed 0": {
+   "exact_indices": [
+    138,
+    453,
+    571,
+    837
+   ],
+   "hamming_of_others_mean": 1206.8292410714287
+  },
+  "beta=0, seed 1": {
+   "exact_indices": [
+    32,
+    317,
+    387,
+    877
+   ],
+   "hamming_of_others_mean": 1188.549107142857
+  },
+  "beta=0, seed 2": {
+   "exact_indices": [
+    135,
+    277,
+    653,
+    704
+   ],
+   "hamming_of_others_mean": 1223.109375
+  },
+  "VAE GELU, seed 0": {
+   "exact_indices": [
+    138,
+    453,
+    571,
+    837
+   ],
+   "hamming_of_others_mean": 1250.203125
+  },
+  "VAE GELU, seed 1": {
+   "exact_indices": [
+    32,
+    317,
+    387,
+    877
+   ],
+   "hamming_of_others_mean": 1245.783482142857
+  },
+  "VAE GELU, seed 2": {
+   "exact_indices": [
+    135,
+    277,
+    653,
+    704
+   ],
+   "hamming_of_others_mean": 1232.625
+  }
+ },
+ "exact_keys_union": [
+  32,
+  135,
+  138,
+  277,
+  317,
+  387,
+  453,
+  571,
+  653,
+  704,
+  837,
+  877
+ ],
+ "exact_key_in_repeated_group": {
+  "32": null,
+  "135": null,
+  "138": null,
+  "277": null,
+  "317": null,
+  "387": null,
+  "453": null,
+  "571": null,
+  "653": null,
+  "704": null,
+  "837": null,
+  "877": null
+ }
+}
