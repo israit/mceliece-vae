@@ -1,0 +1,19 @@
+mceliece_vae_revised v2  --preset mceliece348864 --skip-vae --keygen-runs 3   (Colab, CPU)   2026-10-26
+(TensorFlow CUDA warnings removed; they do not affect results)
+
+[1] Key generation  m=12 n=3488 t=64 form=systematic
+    k=2720, public key (2720, 768) = 2,088,960 bits = 261,120 bytes
+    self-test decrypt(encrypt(m)) == m : 100/100
+[5] Generic compressors on the packed public key
+    gzip-9   ratio = 0.9996 ± 0.0000
+    bzip2-9  ratio = 0.9939 ± 0.0001
+    lzma-9   ratio = 0.9997 ± 0.0000
+[6] Timing over 50 runs
+    keygen_ms                          3474.701 ± 1668.525 ms  (95% CI ± 1888.114, n=3)
+    encrypt_ms                           11.191 ± 0.573 ms  (95% CI ± 0.159, n=50)
+    decrypt_ms                           12.258 ± 1.671 ms  (95% CI ± 0.463, n=50)
+
+Notes:
+- Public key size matches the NIST Classic McEliece specification (261,120 bytes).
+- Implementation: pure Python/NumPy, not optimised; timings are not comparable with optimised C implementations.
+- keygen n=3 only, so its CI is wide.

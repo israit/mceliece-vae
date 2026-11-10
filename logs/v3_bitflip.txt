@@ -1,0 +1,36 @@
+mceliece_vae_revised v3  --skip-vae --tag bitflip   (Colab, CPU)   2026-10-26
+(TensorFlow CUDA warnings removed; they do not affect results)
+
+=== --preset toy
+[1] Key generation  m=6 n=64 t=4 form=sgp
+    k=40, public key (40, 64) = 2,560 bits = 320 bytes
+    self-test decrypt(encrypt(m)) == m : 100/100
+[1b] Bit-flip sensitivity: encrypt with j flipped public-key bits, 200 messages per level
+    flipped=  0  DFR=0.000 ± 0.000  (detected 0.000, wrong plaintext 0.000)
+    flipped=  1  DFR=0.475 ± 0.069  (detected 0.455, wrong plaintext 0.020)
+    flipped=  2  DFR=0.655 ± 0.066  (detected 0.625, wrong plaintext 0.030)
+    flipped=  4  DFR=0.875 ± 0.046  (detected 0.855, wrong plaintext 0.020)
+    flipped=  8  DFR=0.970 ± 0.024  (detected 0.920, wrong plaintext 0.050)
+    flipped= 16  DFR=1.000 ± 0.000  (detected 0.955, wrong plaintext 0.045)
+    flipped= 32  DFR=1.000 ± 0.000  (detected 0.955, wrong plaintext 0.045)
+    flipped= 64  DFR=1.000 ± 0.000  (detected 0.965, wrong plaintext 0.035)
+[5] gzip-9 0.9329 | bzip2-9 0.6617 ± 0.0046 | lzma-9 0.8421
+[6] keygen 9.571 ± 3.588 ms (n=10) | encrypt 0.049 ± 0.022 ms | decrypt 0.575 ± 0.057 ms (n=50)
+
+=== --preset mceliece348864 --keygen-runs 3
+[1] Key generation  m=12 n=3488 t=64 form=systematic
+    k=2720, public key (2720, 768) = 2,088,960 bits = 261,120 bytes
+    self-test decrypt(encrypt(m)) == m : 100/100
+[1b] Bit-flip sensitivity: encrypt with j flipped public-key bits, 200 messages per level
+    flipped=  0  DFR=0.000 ± 0.000  (detected 0.000, wrong plaintext 0.000)
+    flipped=  1  DFR=0.505 ± 0.069  (detected 0.505, wrong plaintext 0.000)
+    flipped=  2  DFR=0.755 ± 0.060  (detected 0.755, wrong plaintext 0.000)
+    flipped=  4  DFR=0.885 ± 0.044  (detected 0.885, wrong plaintext 0.000)
+    flipped=  8  DFR=0.980 ± 0.019  (detected 0.980, wrong plaintext 0.000)
+    flipped= 16  DFR=1.000 ± 0.000  (detected 1.000, wrong plaintext 0.000)
+    flipped= 32  DFR=1.000 ± 0.000  (detected 1.000, wrong plaintext 0.000)
+    flipped= 64  DFR=1.000 ± 0.000  (detected 1.000, wrong plaintext 0.000)
+[5] gzip-9 0.9996 | bzip2-9 0.9939 ± 0.0001 | lzma-9 0.9997
+[6] keygen 2671.175 ± 1256.242 ms (n=3) | encrypt 11.054 ± 1.509 ms | decrypt 14.689 ± 4.179 ms (n=50)
+
+make_figures v3.1 -> figures_v3_1 (Fig A-F)

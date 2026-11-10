@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793221795.759691   17504 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793221800.575414   17504 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[C] (n, m, t) = (32, 5, 2), k = 22, A = 22x10 = 220 bits; 8000 Goppa + 8000 random codes in 8 s
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+    rule_row_weight_auc=0.995, rule_row_weight_acc=0.995, rule_row_weight_goppa_pass=1.000, rule_row_weight_random_pass=0.009, rule_row_and_pair_weight_auc=1.000, rule_row_and_pair_weight_acc=1.000, rule_row_and_pair_weight_goppa_pass=1.000, rule_row_and_pair_weight_random_pass=0.000, vae_recon_auc=0.901, vae_recon_acc=0.822, vae_latent_logreg_auc=0.505, vae_latent_logreg_acc=0.510, mlp_auc=0.926, mlp_acc=0.849
+[C] (n, m, t) = (64, 6, 2), k = 52, A = 52x12 = 624 bits; 8000 Goppa + 8000 random codes in 13 s
+    rule_row_weight_auc=0.992, rule_row_weight_acc=0.992, rule_row_weight_goppa_pass=1.000, rule_row_weight_random_pass=0.017, rule_row_and_pair_weight_auc=1.000, rule_row_and_pair_weight_acc=1.000, rule_row_and_pair_weight_goppa_pass=1.000, rule_row_and_pair_weight_random_pass=0.000, vae_recon_auc=0.827, vae_recon_acc=0.751, vae_latent_logreg_auc=0.502, vae_latent_logreg_acc=0.501, mlp_auc=0.772, mlp_acc=0.699
+[C] (n, m, t) = (64, 6, 3), k = 46, A = 46x18 = 828 bits; 8000 Goppa + 8000 random codes in 15 s
+    rule_row_weight_auc=0.952, rule_row_weight_acc=0.952, rule_row_weight_goppa_pass=1.000, rule_row_weight_random_pass=0.096, rule_row_and_pair_weight_auc=1.000, rule_row_and_pair_weight_acc=1.000, rule_row_and_pair_weight_goppa_pass=1.000, rule_row_and_pair_weight_random_pass=0.000, vae_recon_auc=0.790, vae_recon_acc=0.725, vae_latent_logreg_auc=0.501, vae_latent_logreg_acc=0.501, mlp_auc=0.761, mlp_acc=0.693
+[C] (n, m, t) = (64, 6, 4), k = 40, A = 40x24 = 960 bits; 8000 Goppa + 8000 random codes in 27 s
+    rule_row_weight_auc=0.869, rule_row_weight_acc=0.874, rule_row_weight_goppa_pass=1.000, rule_row_weight_random_pass=0.252, rule_row_and_pair_weight_auc=1.000, rule_row_and_pair_weight_acc=1.000, rule_row_and_pair_weight_goppa_pass=1.000, rule_row_and_pair_weight_random_pass=0.000, vae_recon_auc=0.746, vae_recon_acc=0.683, vae_latent_logreg_auc=0.501, vae_latent_logreg_acc=0.500, mlp_auc=0.737, mlp_acc=0.664
+[H] run 0: VAE 0.5015 (p 0.031), majority 0.5013 (p 0.053), dup 0.000, rank 64; any flag = False  [38 s]
+[H] run 1: VAE 0.5009 (p 0.22), majority 0.5002 (p 0.74), dup 0.000, rank 64; any flag = False  [39 s]
+[H] run 2: VAE 0.5004 (p 0.54), majority 0.5001 (p 0.83), dup 0.000, rank 64; any flag = False  [37 s]
+[H] run 3: VAE 0.5008 (p 0.22), majority 0.5006 (p 0.37), dup 0.000, rank 64; any flag = False  [37 s]
+[H] run 4: VAE 0.4998 (p 0.77), majority 0.5007 (p 0.34), dup 0.000, rank 64; any flag = False  [39 s]
+[H] run 5: VAE 0.5008 (p 0.24), majority 0.5004 (p 0.6), dup 0.000, rank 64; any flag = False  [37 s]
+[H] run 6: VAE 0.4994 (p 0.36), majority 0.4992 (p 0.24), dup 0.000, rank 64; any flag = False  [38 s]
+[H] run 7: VAE 0.5006 (p 0.41), majority 0.5001 (p 0.93), dup 0.000, rank 64; any flag = False  [38 s]
+[H] run 8: VAE 0.5013 (p 0.065), majority 0.5015 (p 0.036), dup 0.000, rank 64; any flag = False  [37 s]
+[H] run 9: VAE 0.5002 (p 0.73), majority 0.4996 (p 0.52), dup 0.000, rank 64; any flag = False  [37 s]
+Total 15.4 min. Results in results/distinguish_health_v1

@@ -1,0 +1,43 @@
+mceliece_vae_revised v4   (run by the authors on Google Colab, CPU)   2026-10-27
+Commands:
+  --preset toy --seeds 0 --perkey-keys 0 --bitflip-levels --tag v4
+  --preset toy --form systematic --seeds 0 --perkey-keys 0 --bitflip-levels --tag v4
+(TensorFlow CUDA / NodeDef warnings removed; they do not affect results)
+
+======================== toy, S*G*P form ========================
+[1] k=40, public key (40, 64) = 2,560 bits = 320 bytes; self-test 100/100
+[1c] Public-key size: S*G*P form (k x n) versus systematic form (k x (n-k))
+    toy (this work)  k=   40  SGP       2,560 bits (     0.31 KiB)  systematic        960 bits (    0.12 KiB)  ratio 2.67x
+    McEliece 1978    k=  524  SGP     536,576 bits (    65.50 KiB)  systematic    262,000 bits (   31.98 KiB)  ratio 2.05x
+    mceliece348864   k= 2720  SGP   9,487,360 bits (  1158.12 KiB)  systematic  2,088,960 bits (  255.00 KiB)  ratio 4.54x
+    mceliece460896   k= 3360  SGP  15,482,880 bits (  1890.00 KiB)  systematic  4,193,280 bits (  511.88 KiB)  ratio 3.69x
+[2] train=900 validation=100 test=200 overlapping keys=0
+[2b] Majority-bit baseline (no model): train bit-acc=0.5134  test bit-acc=0.5001  (p vs 0.5 = 0.909)
+[3] seed=0
+    z=16   test bit-acc=0.4998 (p vs 0.5=0.75,  p vs majority=0.759)  lossless VAE+residual rho=0.768 (ideal) / 0.672 (lzma)  train exact=0.004 test exact=0.000 DFR=1.000
+    z=32   test bit-acc=0.4990 (p vs 0.5=0.145, p vs majority=0.267)  lossless VAE+residual rho=0.666 (ideal) / 0.593 (lzma)  train exact=0.000 test exact=0.000 DFR=1.000
+    z=64   test bit-acc=0.4994 (p vs 0.5=0.361, p vs majority=0.467)  lossless VAE+residual rho=0.526 (ideal) / 0.479 (lzma)  train exact=0.000 test exact=0.000 DFR=1.000
+    z=128  test bit-acc=0.4992 (p vs 0.5=0.228, p vs majority=0.351)  lossless VAE+residual rho=0.370 (ideal) / 0.346 (lzma)  train exact=0.000 test exact=0.000 DFR=1.000
+[5] gzip-9 0.9329 | bzip2-9 0.6617 ± 0.0046 | lzma-9 0.8421
+[6] keygen 10.538 ± 4.454 ms (n=10) | encrypt 0.063 ± 0.021 | decrypt 0.815 ± 0.258 | encrypt+VAE 5.771 ± 1.187 ms (n=50)
+[7] Leakage probe: 0.5001 ± 0.0031 (majority baseline 0.4990), exact recovery 0.000
+
+======================== toy, systematic form ========================
+[1] k=40, public key (40, 24) = 960 bits = 120 bytes; self-test 100/100
+[2] train=900 validation=100 test=200 overlapping keys=0
+[2b] Majority-bit baseline (no model): train bit-acc=0.5151  test bit-acc=0.5018  (p vs 0.5 = 0.121)
+[3] seed=0
+    z=16   test bit-acc=0.5025 (p vs 0.5=0.0312,  p vs majority=0.67)   lossless VAE+residual rho=0.554 (ideal) / 0.435 (lzma)  train exact=0.003 test exact=0.000 DFR=1.000
+    z=32   test bit-acc=0.5032 (p vs 0.5=0.00466, p vs majority=0.366)  lossless VAE+residual rho=0.428 (ideal) / 0.353 (lzma)  train exact=0.000 test exact=0.000 DFR=1.000
+    z=64   test bit-acc=0.5035 (p vs 0.5=0.00216, p vs majority=0.284)  lossless VAE+residual rho=0.294 (ideal) / 0.256 (lzma)  train exact=0.000 test exact=0.000 DFR=1.000
+    z=128  test bit-acc=0.5034 (p vs 0.5=0.00267, p vs majority=0.305)  lossless VAE+residual rho=0.181 (ideal) / 0.166 (lzma)  train exact=0.000 test exact=0.000 DFR=1.000
+[5] gzip-9 0.8392 | bzip2-9 0.6000 ± 0.0052 | lzma-9 0.6667
+[6] keygen 9.905 ± 5.411 ms (n=10) | encrypt 0.059 ± 0.018 | decrypt 0.747 ± 0.113 | encrypt+VAE 5.195 ± 0.351 ms (n=50)
+[7] Leakage probe (targets = bits of g and L): 0.5060 ± 0.0034 (majority baseline 0.5069), exact recovery 0.000
+
+Notes:
+- Systematic keys: VAE bit accuracy is above 0.5 (p < 0.05) but NOT above the majority-bit baseline (p = 0.28-0.67):
+  the gain comes from per-position bit bias, not from learning.
+- Lossless VAE + residual is below 1 in every configuration; systematic form alone gives 2.67x losslessly.
+- From v2 (3 seeds): beta=0 (plain AE) on SGP keys, test bit-acc 50.48 / 50.37 / 50.45 / 50.12 % vs majority 50.01 %:
+  about +0.4-0.5 pp above the baseline for d = 16-64 (z ~ 3.7-4.8), still 0% exact and 100% DFR. Report under comments 6/7.

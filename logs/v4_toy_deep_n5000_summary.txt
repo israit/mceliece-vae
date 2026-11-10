@@ -1,0 +1,15 @@
+mceliece_vae_revised v4 ablations (local, CPU)  2026-10-28
+Results: results/compression_v4/toy_sgp_deep_v4 and toy_sgp_n5000_v4  (seed 0, toy S*G*P keys, 2,560 bits)
+
+Deeper network (--hidden 1024 512 256 128; decoder 3.32M params = 12.65 MiB):
+  test bit-acc 49.94 / 49.97 / 49.97 / 49.98 % (d = 16/32/64/128); p vs majority 0.52-0.80; exact 0 (train and test); DFR 100%
+  lossless VAE+Delta rho 0.77 / 0.67 / 0.53 / 0.37 ; per-key decoder ratio 2.4e-05
+  leakage 49.90% (baseline 49.90%)
+Larger training set (--n-train 5000 -> 4500 train / 500 val / 200 test):
+  majority baseline test 49.96%; test bit-acc 49.97% for ALL d (identical p-values) -> decoder collapsed to the mean key
+  exact 0 (train and test); DFR 100%; leakage 49.96% (baseline 49.94%)
+n=256 (from v4_small_sgp_summary.txt): decoder 25.35M params (96.7 MiB) for a 6 KiB key; shared-decoder rho 0.92-0.98; per-key 6.1e-05
+
+beta=0 (from results_v2, 3 runs) vs majority baseline 50.01% (two-proportion z, 512,000 bits):
+  d=16 50.48% z=4.76 (p~2e-6); d=32 50.37% z=3.68 (p~2e-4); d=64 50.45% z=4.44; d=128 50.12% z=1.07 (p~0.28)
+  -> weak per-position structure of the small toy code picked up without KL; still 0% exact, 100% DFR.

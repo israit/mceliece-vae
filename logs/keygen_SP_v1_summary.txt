@@ -1,0 +1,29 @@
+vae_keygen_SP_v1.py  (local, Windows, CPU)  2026-10-28
+Full results: results/keygen_SP_v1/ (results.json, table_keygen_profile.csv, table_vae_SP.csv)
+
+[A] Key-generation profile, share of total time (our Python implementation)
+  toy (6,64,4) SGP, total 5.1 ms (n=20):  Goppa poly 48.4% | S gen 29.3% | S inverse 10.0% | Gauss elim 6.2% | H 3.6% | SGP product 1.6% | P 0.25%
+  McEliece 1978 (10,1024,50) SGP, total 2,020 ms (n=3):  SGP product 48.6% | Goppa 35.0% | S gen 7.3% | S inverse 4.6% | Gauss 4.3% | P 0.003%
+  mceliece348864 systematic, total 4,229 ms (n=2):  Goppa 74.7% | Gauss 24.0% | systematic key 0.8%  (no S, no P)
+  -> S-related steps (generate + invert + multiply) are 41% (toy) / 60% (1978) of SGP key generation; P is negligible.
+     Classic McEliece removes S and P entirely (systematic form). A VAE can only replace "S gen"/"P gen", not the inverse or product.
+
+[B] VAE generation of S (40x40) and P (64x64), 2000 training matrices each, 1000 samples from the prior
+  CSPRNG baseline: S 1.62 ms per valid matrix (uniform 40x40 invertible fraction 0.297), P 0.006 ms;
+                   S unique 100%, min-entropy 9.97 bits (= max for 1000 samples), bit bias 0.013; P chi2 uniformity p = 0.999
+  z=16  S: valid (invertible) 74.9% | unique among valid 15.4% | min-entropy 0.30 bits | bit bias 0.494 | 3.65 ms per valid S | 0 memorised
+  z=16  P: raw valid 0% | after projection: unique 99.4%, min-entropy 7.16 bits, memorised 0.7%, chi2 uniformity p = 0 | 3.93 ms per P
+  z=64  S: valid 6.5% | unique among valid 95.4% | min-entropy 4.44 bits (max 6.02) | bit bias 0.495 | 35.1 ms per valid S
+  z=64  P: raw valid 0% | after projection: unique 100%, min-entropy 9.97, memorised 0%, chi2 uniformity p = 0 | 4.14 ms per P
+  Decoder: 446k-453k params (S), 1.09M params (P)
+
+[C] 20 McEliece keys built with VAE-generated S (rank-checked) and P (projected): 20/20 correct, 1000/1000 messages decrypted.
+
+Note: 'CSPRNG' in the script output = NumPy default_rng (PCG64), a uniform pseudo-random generator, NOT a cryptographically secure one. In the paper it is called 'uniform RNG baseline'.
+
+Interpretation:
+  - Functional: VAE-generated S and P give working McEliece keys after a validity filter (S) / projection (P).
+  - Not faster: 2.3x (S, z=16) to 22x (S, z=64) and ~700x (P) slower than a CSPRNG.
+  - Not random enough: z=16 S collapses to a few matrices (min-entropy 0.30 bits; bits almost constant, bias 0.494 vs 0.013);
+    P never valid without projection and its positions are strongly non-uniform (chi2 p = 0 vs 0.999 for CSPRNG).
+  - Key-generation cost is dominated by the Goppa polynomial and linear algebra; S/P generation is a small, avoidable part.

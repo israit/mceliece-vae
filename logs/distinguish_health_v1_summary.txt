@@ -1,0 +1,29 @@
+vae_distinguish_health_v1.py  (local, Windows 11, Intel CPU, 11 worker processes; Python 3.12.10, NumPy 2.5.4, TensorFlow 2.21.0)  2026-10-29
+Results: results/distinguish_health_v1/ (results.json, table_distinguish.csv, table_health_correct.csv)
+Raw log: run_logs\distinguish_health_v1_raw.txt     Total run time 15.4 min
+
+[C] Goppa codes vs uniformly random linear codes, systematic block A of [I_k | A] (the representation of DeepDistinguisher,
+    Malhou et al. 2025). 5,000 training, 1,000 validation, 2,000 test codes per class. Cell = test accuracy (%) / ROC AUC.
+    VAE: hidden 256-128, d = 16, beta = 1, 50 epochs, trained on Goppa codes ONLY; score = log-likelihood of the reconstruction.
+    MLP: 256-128-1, 50 epochs, supervised on both classes. Rules: every row of [I|A] has weight >= 2t+1 (row rule) and so has every
+    sum of two rows (row + pair rule); both follow from the minimum distance d >= 2t+1 of binary Goppa codes.
+
+  (n, m, t)   k   A bits | row rule      row+pair rule | VAE recon (Goppa only) | logistic on VAE latent | supervised MLP
+  (32, 5, 2)  22   220   | 99.5 / 0.995  100.0 / 1.000 | 82.2 / 0.901           | 51.0 / 0.505           | 84.9 / 0.926
+  (64, 6, 2)  52   624   | 99.2 / 0.992  100.0 / 1.000 | 75.1 / 0.827           | 50.1 / 0.502           | 69.9 / 0.772
+  (64, 6, 3)  46   828   | 95.2 / 0.952  100.0 / 1.000 | 72.5 / 0.790           | 50.1 / 0.501           | 69.3 / 0.761
+  (64, 6, 4)  40   960   | 87.4 / 0.869  100.0 / 1.000 | 68.3 / 0.746           | 50.0 / 0.501           | 66.4 / 0.737
+  Random codes passing the row rule: 0.9%, 1.7%, 9.6%, 25.2%; passing the row+pair rule: 0% in every set. Goppa codes pass both: 100%.
+
+  Interpretation: the VAE, never shown a random code, recognises small Goppa codes (AUC 0.75-0.90), better than a supervised MLP for
+  n = 64, but below the exact minimum-distance rule; its latent vector carries no usable information. Consistent with Lavit et al.
+  (2026): neural models see the statistical footprint of the minimum distance. The signal weakens as t grows.
+
+[H] Key-generator health check (VAE + majority bit + duplicates + pooled GF(2) rank; flag = any test, p < 0.001) on the CORRECT
+    generator, 10 independent runs (1,000 + 200 toy keys each, new keys, VAE seeds 100-109, d = 32, beta = 1, 50 epochs):
+    VAE bit accuracy 49.94-50.15%, majority 49.92-50.15%, no duplicates, rank 64/64 in every run -> 0 false alarms in 10 runs.
+    With the 14 generators of goppa_detect_v1: the combined check flags 12 of 13 weak generators (all but VAE-generated g with
+    random L, S, P) and passes the correct one.
+
+[Theory] Proposition 2 (manuscript Section 5.8.4): a public encoder/decoder (E, D) with D(E(T)) = T and |E(T)| <= N - c for a
+    fraction p of McEliece public keys yields a distinguisher from uniform N-bit matrices with advantage >= p - 2^(1-c).

@@ -1,0 +1,57 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793169688.521578    2824 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793169692.246113    2824 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+goppa_detect_v1  workers=11
+[G] toy: m=6, t=4, 24-bit polynomials, 5000 training polynomials
+    training data: 5000 polynomials in 6.3 s (19945 tests, hit 0.2507)
+    uniform hit 0.2530 (1/t = 0.2500); root filter: pass 0.375, hit 0.6743
+    time per irreducible: uniform 4.06 ms, root filter 2.68 ms
+    d=  8 threshold: hit 0.1920 (x0.76, p=5.5e-11), unique 0.210, H_min 3.21/9.58, memorised 0.000, bias 0.362 (uniform 0.022), 7.20 ms/irreducible
+    d=  8 bernoulli: hit 0.2420 (x0.96, p=0.26), unique 1.000, H_min 9.92/9.92, memorised 0.002, bias 0.010 (uniform 0.022), 5.11 ms/irreducible
+    d= 32 threshold: hit 0.0355 (x0.14, p=1.1e-168), unique 0.239, H_min 0.61/7.15, memorised 0.000, bias 0.462 (uniform 0.022), 34.25 ms/irreducible
+    d= 32 bernoulli: hit 0.2432 (x0.96, p=0.31), unique 1.000, H_min 9.93/9.93, memorised 0.000, bias 0.012 (uniform 0.022), 6.01 ms/irreducible
+[G] small: m=8, t=8, 64-bit polynomials, 5000 training polynomials
+    training data: 5000 polynomials in 30.2 s (39623 tests, hit 0.1262)
+    uniform hit 0.1230 (1/t = 0.1250); root filter: pass 0.363, hit 0.3387
+    time per irreducible: uniform 25.60 ms, root filter 22.60 ms
+    d=  8 threshold: hit 0.0295 (x0.24, p=5.8e-56), unique 0.246, H_min 2.13/6.88, memorised 0.000, bias 0.475 (uniform 0.021), 81.41 ms/irreducible
+    d=  8 bernoulli: hit 0.1253 (x1.02, p=0.76), unique 1.000, H_min 8.97/8.97, memorised 0.000, bias 0.010 (uniform 0.021), 26.81 ms/irreducible
+    d= 32 threshold: hit 0.0312 (x0.25, p=2.1e-53), unique 0.304, H_min 1.61/6.97, memorised 0.000, bias 0.468 (uniform 0.021), 93.33 ms/irreducible
+    d= 32 bernoulli: hit 0.1330 (x1.08, p=0.18), unique 1.000, H_min 9.06/9.06, memorised 0.000, bias 0.008 (uniform 0.021), 25.53 ms/irreducible
+[G] medium: m=10, t=20, 200-bit polynomials, 2000 training polynomials
+    training data: 2000 polynomials in 96.9 s (39695 tests, hit 0.0504)
+    uniform hit 0.0473 (1/t = 0.0500); root filter: pass 0.364, hit 0.1299
+    time per irreducible: uniform 175.72 ms, root filter 190.23 ms
+    d=  8 threshold: hit 0.0235 (x0.50, p=4.6e-05), unique 0.681, H_min 2.38/5.55, memorised 0.000, bias 0.469 (uniform 0.027), 303.05 ms/irreducible
+    d=  8 bernoulli: hit 0.0525 (x1.11, p=0.45), unique 1.000, H_min 6.71/6.71, memorised 0.000, bias 0.013 (uniform 0.027), 240.31 ms/irreducible
+    d= 32 threshold: hit 0.0160 (x0.34, p=1.5e-08), unique 0.594, H_min 1.83/5.00, memorised 0.000, bias 0.486 (uniform 0.027), 468.89 ms/irreducible
+    d= 32 bernoulli: hit 0.0485 (x1.02, p=0.86), unique 1.000, H_min 6.60/6.60, memorised 0.000, bias 0.013 (uniform 0.027), 211.27 ms/irreducible
+[G] mceliece348864: m=12, t=64, 768-bit polynomials, 1000 training polynomials
+    training data: 1000 polynomials in 724.9 s (65138 tests, hit 0.0154)
+    uniform hit 0.0137 (1/t = 0.0156); root filter: pass 0.362, hit 0.0379
+    time per irreducible: uniform 4055.80 ms, root filter 4934.75 ms
+    d=  8 threshold: hit 0.0170 (x1.24, p=0.55), unique 1.000, H_min 4.09/4.09, memorised 0.000, bias 0.440 (uniform 0.042), 5634.30 ms/irreducible
+    d=  8 bernoulli: hit 0.0150 (x1.09, p=0.81), unique 1.000, H_min 3.91/3.91, memorised 0.000, bias 0.017 (uniform 0.042), 5642.31 ms/irreducible
+    d= 32 threshold: hit 0.0180 (x1.31, p=0.45), unique 1.000, H_min 4.17/4.17, memorised 0.000, bias 0.442 (uniform 0.042), 18525.98 ms/irreducible
+    d= 32 bernoulli: hit 0.0080 (x0.58, p=0.22), unique 1.000, H_min 3.00/3.00, memorised 0.000, bias 0.018 (uniform 0.042), 14068.58 ms/irreducible
+[G] end-to-end toy: 20/20 keys correct, 1000/1000 messages
+[G] end-to-end small: 20/20 keys correct, 1000/1000 messages
+[G] 1514 irreducible VAE polynomials kept for Part D (1514 distinct)
+[D] 1200 VAE-generated S matrices (363 distinct)
+[D] Correct key generation                   VAE 0.5014 vs majority 0.5014 (p=0.99); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=False  [52 s]
+[D] 8-bit seed                               VAE 0.5293 vs majority 0.5187 (p=1.4e-26); exact 0.020 (novel 0.000); dup 0.965; rank 64/64; flag=True  [54 s]
+[D] 10-bit seed                              VAE 0.5085 vs majority 0.5083 (p=0.86); exact 0.000 (novel 0.000); dup 0.640; rank 64/64; flag=True  [51 s]
+[D] 12-bit seed                              VAE 0.5024 vs majority 0.5022 (p=0.86); exact 0.000 (novel 0.000); dup 0.150; rank 64/64; flag=True  [55 s]
+[D] 16-bit seed                              VAE 0.5003 vs majority 0.5009 (p=0.5); exact 0.000 (novel 0.000); dup 0.020; rank 64/64; flag=False  [55 s]
+[D] Shared code and P, S with p=0.02         VAE 0.8782 vs majority 0.8784 (p=0.71); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [48 s]
+[D] Shared code and P, S with p=0.05         VAE 0.7864 vs majority 0.7876 (p=0.14); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [33 s]
+[D] Shared code and P, S with p=0.1          VAE 0.6995 vs majority 0.6976 (p=0.036); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [33 s]
+[D] Shared code and P, S with p=0.25         VAE 0.5514 vs majority 0.5516 (p=0.85); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [34 s]
+[D] Shared code and P, S with p=0.5          VAE 0.5005 vs majority 0.5000 (p=0.67); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=False  [53 s]
+[D] Shared code and P, uniform S             VAE 0.5001 vs majority 0.5001 (p=0.99); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=False  [57 s]
+[D] Shared code and P, VAE-generated S       VAE 0.9730 vs majority 0.9282 (p=0); exact 0.540 (novel 0.000); dup 0.720; rank 40/64; flag=True  [46 s]
+[D] Random code, VAE-generated S             VAE 0.5375 vs majority 0.5374 (p=0.94); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=True  [46 s]
+[D] VAE-generated Goppa polynomial           VAE 0.4993 vs majority 0.4995 (p=0.84); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=False  [49 s]
+Total 62.9 min. All results written to results/goppa_detect_v1

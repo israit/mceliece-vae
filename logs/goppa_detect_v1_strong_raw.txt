@@ -1,0 +1,16 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793173530.557406   19312 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793173542.251090   19312 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+goppa_detect_v1  workers=11
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[D] 1200 VAE-generated S matrices (171 distinct)
+[D] Correct key generation                   VAE 0.5021 vs majority 0.5002 (p=0.048); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=False  [188 s]
+[D] 8-bit seed                               VAE 0.9695 vs majority 0.5220 (p=0); exact 0.895 (novel 0.000); dup 0.995; rank 64/64; flag=True  [187 s]
+[D] 10-bit seed                              VAE 0.6713 vs majority 0.5105 (p=0); exact 0.315 (novel 0.000); dup 0.660; rank 64/64; flag=True  [177 s]
+[D] Shared code and P, S with p=0.02         VAE 0.8556 vs majority 0.8806 (p=7.5e-305); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [166 s]
+[D] Shared code and P, S with p=0.1          VAE 0.6861 vs majority 0.6993 (p=2.2e-47); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [172 s]
+[D] Shared code and P, uniform S             VAE 0.5037 vs majority 0.5001 (p=0.00026); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [177 s]
+[D] Shared code and P, VAE-generated S       VAE 0.9918 vs majority 0.9828 (p=0); exact 0.840 (novel 0.000); dup 0.850; rank 40/64; flag=True  [168 s]
+[D] Random code, VAE-generated S             VAE 0.5227 vs majority 0.5293 (p=1.7e-11); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=True  [167 s]
+Total 25.2 min. All results written to results/goppa_detect_v1_strong

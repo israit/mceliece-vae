@@ -1,0 +1,78 @@
+﻿python.exe : WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+At line:3 char:1
++ & $py mceliece_vae_revised_v4.py --preset toy --seeds 0 --perkey-keys ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: All lo...itten to STDERR:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+I0000 00:00:1793136448.853845   21660 port.cc:153] oneDNN custom operations are on. You may see slightly different 
+numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the 
+environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793136453.980495   21660 port.cc:153] oneDNN custom operations are on. You may see slightly different 
+numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the 
+environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+mceliece_vae_revised v4
+[1] Key generation  m=6 n=64 t=4 form=sgp
+    k=40, public key (40, 64) = 2,560 bits = 320 bytes
+    self-test decrypt(encrypt(m)) == m : 100/100
+[1c] Public-key size: S*G*P form (k x n) versus systematic form (k x (n-k))
+    toy (this work)  k=   40  SGP       2,560 bits (     0.31 KiB)  systematic        960 bits (    0.12 KiB)  ratio 2.67x
+    McEliece 1978    k=  524  SGP     536,576 bits (    65.50 KiB)  systematic    262,000 bits (   31.98 KiB)  ratio 2.05x
+    mceliece348864   k= 2720  SGP   9,487,360 bits (  1158.12 KiB)  systematic  2,088,960 bits (  255.00 KiB)  ratio 4.54x
+    mceliece460896   k= 3360  SGP  15,482,880 bits (  1890.00 KiB)  systematic  4,193,280 bits (  511.88 KiB)  ratio 3.69x
+[2] Generating 1000 training and 200 test keys (disjoint seeds)
+    train=900  validation=100  test=200  overlapping keys=0
+[2b] Majority-bit baseline (no model): train bit-acc=0.5134  test bit-acc=0.5001  (p vs 0.5 = 0.909)
+[3] Generalisation regime: one VAE trained once, evaluated on unseen keys
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if 
+CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+E0000 00:00:1793136469.463291   21660 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    seed=0 z=  16  test bit-acc=0.4994 (p vs 0.5=0.429, p vs majority=0.522)  lossless VAE+residual rho=0.768 (ideal) / 0.672 (lzma)
+    seed=0 z=  16  train exact=0.000  test exact=0.000  test bit-acc=0.4994  test DFR=1.000
+E0000 00:00:1793136620.807533   21660 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    seed=0 z=  32  test bit-acc=0.4997 (p vs 0.5=0.685, p vs majority=0.713)  lossless VAE+residual rho=0.666 (ideal) / 0.593 (lzma)
+    seed=0 z=  32  train exact=0.000  test exact=0.000  test bit-acc=0.4997  test DFR=1.000
+E0000 00:00:1793136707.038347   21660 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    seed=0 z=  64  test bit-acc=0.4997 (p vs 0.5=0.71, p vs majority=0.731)  lossless VAE+residual rho=0.526 (ideal) / 0.479 (lzma)
+    seed=0 z=  64  train exact=0.000  test exact=0.000  test bit-acc=0.4997  test DFR=1.000
+E0000 00:00:1793136799.022447   21660 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    seed=0 z= 128  test bit-acc=0.4998 (p vs 0.5=0.812, p vs majority=0.803)  lossless VAE+residual rho=0.370 (ideal) / 0.346 (lzma)
+    seed=0 z= 128  train exact=0.000  test exact=0.000  test bit-acc=0.4998  test DFR=1.000
+[4] Per-key regime ('repeats'): one VAE trained per key, decoder must be shipped
+[5] Generic compressors on the packed public key
+    gzip-9   ratio = 0.9329 ± 0.0000
+    bzip2-9  ratio = 0.6617 ± 0.0046
+    lzma-9   ratio = 0.8421 ± 0.0000
+[6] Timing over 50 runs
+    keygen_ms                            14.504 ± 5.779 ms  (95% CI ± 3.582, n=10)
+    encrypt_ms                            0.030 ± 0.008 ms  (95% CI ± 0.002, n=50)
+    decrypt_ms                            0.502 ± 0.048 ms  (95% CI ± 0.013, n=50)
+    encrypt_with_vae_inference_ms         6.529 ± 0.865 ms  (95% CI ± 0.240, n=50)
+[7] Leakage probe: bit accuracy 0.4990 ± 0.0031 (majority baseline 0.4990), exact private-key recovery 0.000
+
+All results written to results/compression_v4/toy_sgp_deep_v4

@@ -1,0 +1,73 @@
+vae_goppa_detect_v1.py  (local, Windows 11, Intel CPU, 11 worker processes; Python 3.12.10, NumPy 2.5.4, TensorFlow 2.21.0)  2026-10-28
+Results: results/goppa_detect_v1/ (results.json, table_goppa.csv, table_goppa_end_to_end.csv, table_detection.csv)
+Raw log: run_logs\goppa_detect_v1_raw.txt     Total run time 62.9 min
+VAE settings: hidden [256,128] (poly bits <= 256) or [512,256]; beta = 1; Adam 1e-3; 50 epochs; batch 64; seed 0.
+
+[G] VAE-guided Goppa polynomial generation
+  Candidates: monic degree-t polynomials over GF(2^m), coefficients g_0..g_{t-1} as t*m bits. VAE trained on irreducible
+  polynomials from uniform sampling; sampling from the prior N(0,I); decoder output rounded ("threshold") or sampled
+  bit by bit ("bernoulli"). Baselines: uniform sampling; uniform + root filter (reject g with a root in GF(2^m); no learning).
+  Time = single-thread ms per irreducible polynomial (decoder cost amortised over a batch).
+
+  set (m,t)            train  cand   uniform  root-filter | VAE hit rate: d8 thr  d8 Bern  d32 thr  d32 Bern | ms/irreducible: uniform  filter  VAE d8 B  VAE d32 B
+  toy (6,4)            5000   4000   25.30%   67.43%      |   19.20%  24.20%  3.55%   24.32%                |   4.06     2.68     5.11     6.01
+  small (8,8)          5000   4000   12.30%   33.87%      |    2.95%  12.53%  3.12%   13.30%                |  25.60    22.60    26.81    25.53
+  medium (10,20)       2000   2000    4.73%   12.99%      |    2.35%   5.25%  1.60%    4.85%                | 175.7    190.2    240.3    211.3
+  mceliece348864(12,64) 1000  1000    1.37%    3.79%      |    1.70%   1.50%  1.80%    0.80%                | 4,056    4,935    5,642   14,069
+  uniform hit rate measured on 40,007 / 20,009 / 8,008 / 4,004 candidates; ~1/t as expected.
+
+  Significance vs uniform (two-proportion z): Bernoulli: no difference in any set (p = 0.18-0.86).
+    Threshold: significantly LOWER for toy, small, medium (p from 4.6e-5 to 1e-168); 348864 not significant (p 0.45-0.55, only 17-18 hits).
+  Diversity: Bernoulli outputs all distinct, memorised training polynomials <= 0.2%, bit bias ~0.01 (near uniform).
+    Threshold outputs collapse: distinct candidates 3.3-15% (toy), 5.5-7% (small), 23-34% (medium); min-entropy of the
+    irreducible outputs 0.61-3.21 bits (toy, max 7.2-9.6), 1.6-2.1 (small), 1.8-2.4 (medium); bit bias 0.36-0.49 (bits nearly constant).
+  Speed: VAE never faster than uniform sampling: 0.12-1.00x (Bernoulli 0.29-1.00x; threshold 0.12-0.72x).
+  Root filter (no learning) raises the hit rate 2.7x in every set (about e^-1 = 37% of random polynomials have no root),
+    but saves time only for small fields (toy 34%, small 12%); slower for medium and 348864 (Ben-Or already rejects them early).
+  End-to-end: keys with VAE-generated g (d=8, Bernoulli), random L, S, P: toy 20/20 keys, 1000/1000 messages; small (n=256) 20/20, 1000/1000.
+
+  Interpretation: the VAE learns the per-bit distribution of irreducible polynomials, which is almost uniform; irreducibility
+  is an algebraic property that is not visible in it. Bernoulli sampling therefore behaves like uniform sampling plus decoder
+  cost; deterministic decoding collapses to a few polynomials and lowers the hit rate. No speed-up of the most expensive key-generation step.
+
+[D] VAE as a detector of weak key generators (toy keys (6,64,4), S*G*P, 2,560 bits; 1000 train / 200 test keys per generator;
+    detector = the VAE of the compression experiments, d = 32, beta = 1, 50 epochs; 512,000 test bits per generator)
+  generator                              VAE bit-acc  majority  exact(novel)  test keys in train  pooled rank  flagged by: VAE maj dup rank
+  Correct key generation                  50.14%      50.14%    0 (0)          0%                 64/64        - - - -
+  8-bit seed                              52.93%      51.87%    2.0% (0)      96.5%               64           V M D -
+  10-bit seed                             50.85%      50.83%    0 (0)         64.0%               64           V M D -
+  12-bit seed                             50.24%      50.22%    0 (0)         15.0%               64           V - D -
+  16-bit seed                             50.03%      50.09%    0 (0)          2.0%               64           - - D -
+  Shared code+P, S biased p=0.02          87.82%      87.84%    0 (0)          0%                 40/64        V M - R
+  Shared code+P, S biased p=0.05          78.64%      78.76%    0 (0)          0%                 40           V M - R
+  Shared code+P, S biased p=0.10          69.95%      69.76%    0 (0)          0%                 40           V M - R
+  Shared code+P, S biased p=0.25          55.14%      55.16%    0 (0)          0%                 40           V M - R
+  Shared code+P, S biased p=0.50          50.05%      50.00%    0 (0)          0%                 40           - - - R
+  Shared code+P, uniform S                50.01%      50.01%    0 (0)          0%                 40           - - - R
+  Shared code+P, VAE-generated S          97.30%      92.82%    54.0% (0)     72.0%               40           V M D R
+  Random code, VAE-generated S            53.75%      53.74%    0 (0)          0%                 64           V M - -
+  VAE-generated Goppa polynomial          49.93%      49.95%    0 (0)          0%                 64           - - - -
+  (flag = better than chance with p < 0.001, or any exact recovery; dup = a test key also in the training set; rank = GF(2) rank of the stacked rows of the first test keys < n)
+
+  Interpretation (honest):
+   - Positive control: the same VAE that reconstructs correct keys at chance level does learn keys from weakened generators
+     (up to 97.3% bit accuracy), so its failure on correct keys reflects the randomness of the keys, not an under-powered model.
+   - The VAE flags generators whose keys have biased bits, including keys built from VAE-generated S (the original thesis idea).
+   - But the VAE adds nothing over the simplest test: its bit accuracy equals the majority-bit predictor in every family except
+     the two with repeated keys; it never reconstructed a key that was not in its training set; it recovered only 2% of the
+     96.5% repeated keys of the 8-bit seed generator; and it missed the shared-code weakness that a GF(2) rank test finds at once.
+   - It does not see a weak g when L, S and P are random (and VAE g sampled bit by bit is close to uniform anyway).
+
+[D-strong] Stronger detector (beta = 0.1, 200 epochs), 8 generators.  Results: results/goppa_detect_v1_strong  (25.2 min; raw log goppa_detect_v1_strong_raw.txt)
+  (keys drawn again, so majority values differ slightly; VAE-generated S from an independently trained generator: 171 distinct of 1200, vs 363 in the main run)
+  generator                              VAE bit-acc  majority  exact(novel)  test keys in train   p(VAE vs 0.5)
+  Correct key generation                  50.21%      50.02%    0 (0)          0%                  0.0024 (not flagged at 0.001)
+  8-bit seed                              96.95%      52.20%    89.5% (0)     99.5%
+  10-bit seed                             67.13%      51.05%    31.5% (0)     66.0%
+  Shared code+P, S biased p=0.02          85.56%      88.06%    0              0%                  (below majority: over-fitting)
+  Shared code+P, S biased p=0.10          68.61%      69.93%    0              0%
+  Shared code+P, uniform S                50.37%      50.01%    0              0%                  1.5e-7 (flagged; majority not)
+  Shared code+P, VAE-generated S          99.18%      98.28%    84.0% (0)     85.0%
+  Random code, VAE-generated S            52.27%      52.93%    0              0%
+  -> memorises repeated keys (= duplicate check), still never recovers a novel key; overfits biased families;
+     barely notices the shared code (50.37%) while correct keys give 50.21%: small margin.

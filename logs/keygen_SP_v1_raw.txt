@@ -1,0 +1,92 @@
+﻿python.exe : WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+At line:2 char:1
++ & $py vae_keygen_SP_v1.py --out "results/keygen_SP_v1"  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: All lo...itten to STDERR:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+I0000 00:00:1793134658.607719   21016 port.cc:153] oneDNN custom operations are on. You may see slightly different 
+numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the 
+environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793134661.873519   21016 port.cc:153] oneDNN custom operations are on. You may see slightly different 
+numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the 
+environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+keygen_SP_v1
+[A] Key-generation profile (time per step)
+  toy              total        5.1 ms  (n=20)
+      field_and_support              0.03 ms    0.66 %
+      goppa_polynomial               2.65 ms   48.37 %
+      parity_check_matrix            0.17 ms    3.61 %
+      gaussian_elimination           0.30 ms    6.24 %
+      S_generation                   1.43 ms   29.25 %
+      S_inverse                      0.48 ms    9.98 %
+      P_generation                   0.01 ms    0.25 %
+      public_key_SGP                 0.08 ms    1.63 %
+  McEliece 1978    total     2020.1 ms  (n=3)
+      field_and_support              0.54 ms    0.03 %
+      goppa_polynomial             728.48 ms   34.95 %
+      parity_check_matrix            4.71 ms    0.24 %
+      gaussian_elimination          84.84 ms    4.25 %
+      S_generation                 138.42 ms    7.34 %
+      S_inverse                     91.41 ms    4.57 %
+      P_generation                   0.06 ms    0.00 %
+      public_key_SGP               971.65 ms   48.62 %
+  mceliece348864   total     4229.2 ms  (n=2)
+      field_and_support              5.30 ms    0.13 %
+      goppa_polynomial            3224.64 ms   74.73 %
+      parity_check_matrix           11.88 ms    0.30 %
+      gaussian_elimination         953.56 ms   24.03 %
+      systematic_public_key         33.87 ms    0.81 %
+[B] VAE generation of S (40x40) and P (64x64); 2000 training matrices each
+    CSPRNG: S 1.621 ms, P 0.006 ms per matrix; uniform k x k invertible 0.297
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if 
+CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+E0000 00:00:1793134683.444435   21016 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    z=  16 S: final_loss=1106, decoder_ms_per_sample=3.024, decoder_params=446400, valid_fraction_raw=0.749, valid_n_samples=749, valid_unique_fraction=0.1535, valid_min_entropy_bits_estimate=0.2962, valid_max_entropy_bits_possible_with_n_samples=9.549, valid_memorised_fraction=0, bit_bias=0.4936, vae_ms_per_valid_S=3.647
+E0000 00:00:1793134704.998905   21016 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    z=  16 P: final_loss=275.2, decoder_ms_per_sample=2.919, decoder_params=1087872, valid_fraction_raw=0, projected_n_samples=1000, projected_unique_fraction=0.994, projected_min_entropy_bits_estimate=7.158, projected_max_entropy_bits_possible_with_n_samples=9.966, projected_memorised_fraction=0.007, projected_chi2_position_uniformity_p=0, vae_ms_per_projected_P=3.931
+E0000 00:00:1793134751.675084   21016 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    z=  64 S: final_loss=1106, decoder_ms_per_sample=3.34, decoder_params=452544, valid_fraction_raw=0.065, valid_n_samples=65, valid_unique_fraction=0.9538, valid_min_entropy_bits_estimate=4.437, valid_max_entropy_bits_possible_with_n_samples=6.022, valid_memorised_fraction=0, bit_bias=0.4947, vae_ms_per_valid_S=35.14
+E0000 00:00:1793134772.653728   21016 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+    z=  64 P: final_loss=315.2, decoder_ms_per_sample=3.403, decoder_params=1094016, valid_fraction_raw=0, projected_n_samples=1000, projected_unique_fraction=1, projected_min_entropy_bits_estimate=9.966, projected_max_entropy_bits_possible_with_n_samples=9.966, projected_memorised_fraction=0, projected_chi2_position_uniformity_p=0, vae_ms_per_projected_P=4.14
+E0000 00:00:1793134810.553019   21016 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+E0000 00:00:1793134830.020562   21016 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which 
+is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; 
+attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; 
+attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; 
+attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; 
+attr=metadata:string,default=""> This may be expected if your graph generating binary is newer  than this binary. 
+Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}
+[C] McEliece keys with VAE-generated S and P: 20/20 keys correct (1000/1000 messages decrypted)
+All results written to results/keygen_SP_v1

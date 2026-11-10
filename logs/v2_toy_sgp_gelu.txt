@@ -1,0 +1,35 @@
+mceliece_vae_revised v2  --preset toy --activation gelu --tag gelu   (Colab, CPU)   2026-10-25
+(TensorFlow CUDA / NodeDef warnings removed; they do not affect results)
+
+[1] Key generation  m=6 n=64 t=4 form=sgp
+    k=40, public key (40, 64) = 2,560 bits = 320 bytes
+    self-test decrypt(encrypt(m)) == m : 100/100
+[2] Generating 1000 training and 200 test keys (disjoint seeds)
+    train=900  validation=100  test=200  overlapping keys=0
+[3] Generalisation regime: one VAE trained once, evaluated on unseen keys
+    seed=0 z=  16  train exact=0.004  test exact=0.000  test bit-acc=0.5013  test DFR=1.000
+    seed=0 z=  32  train exact=0.004  test exact=0.000  test bit-acc=0.5002  test DFR=1.000
+    seed=0 z=  64  train exact=0.004  test exact=0.000  test bit-acc=0.5002  test DFR=1.000
+    seed=0 z= 128  train exact=0.001  test exact=0.000  test bit-acc=0.5002  test DFR=1.000
+    seed=1 z=  16  train exact=0.004  test exact=0.000  test bit-acc=0.5005  test DFR=1.000
+    seed=1 z=  32  train exact=0.004  test exact=0.000  test bit-acc=0.5007  test DFR=1.000
+    seed=1 z=  64  train exact=0.004  test exact=0.000  test bit-acc=0.5000  test DFR=1.000
+    seed=1 z= 128  train exact=0.004  test exact=0.000  test bit-acc=0.5001  test DFR=1.000
+    seed=2 z=  16  train exact=0.004  test exact=0.000  test bit-acc=0.5016  test DFR=1.000
+    seed=2 z=  32  train exact=0.004  test exact=0.000  test bit-acc=0.5003  test DFR=1.000
+    seed=2 z=  64  train exact=0.004  test exact=0.000  test bit-acc=0.5004  test DFR=1.000
+    seed=2 z= 128  train exact=0.004  test exact=0.000  test bit-acc=0.5008  test DFR=1.000
+[4] Per-key regime ('repeats'): one VAE trained per key, decoder must be shipped
+    key 0: exact=[1, 1, 1, 1]  honest ratio=1.13e-04
+    key 1: exact=[1, 1, 1, 1]  honest ratio=1.13e-04
+    key 2: exact=[1, 1, 1, 1]  honest ratio=1.13e-04
+[5] Generic compressors on the packed public key
+    gzip-9   ratio = 0.9329 ± 0.0000
+    bzip2-9  ratio = 0.6617 ± 0.0046
+    lzma-9   ratio = 0.8421 ± 0.0000
+[6] Timing over 50 runs
+    keygen_ms                            10.967 ± 4.041 ms  (95% CI ± 2.505, n=10)
+    encrypt_ms                            0.057 ± 0.017 ms  (95% CI ± 0.005, n=50)
+    decrypt_ms                            0.901 ± 0.353 ms  (95% CI ± 0.098, n=50)
+    encrypt_with_vae_inference_ms         6.354 ± 1.205 ms  (95% CI ± 0.334, n=50)
+[7] Leakage probe: bit accuracy 0.4998 ± 0.0031 (majority baseline 0.4990), exact private-key recovery 0.000

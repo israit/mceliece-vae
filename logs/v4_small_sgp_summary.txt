@@ -1,0 +1,19 @@
+mceliece_vae_revised v4  --preset small --form sgp --seeds 0 --perkey-keys 1 --bitflip-levels --tag v4   (local, CPU)  2026-10-28
+Results: results/compression_v4/small_sgp_v4/   Raw log: v4_small_sgp_raw.txt
+
+Key: (m, n, t) = (8, 256, 8), k = 192, S*G*P public key 192 x 256 = 49,152 bits = 6,144 bytes (19.2x the toy key); self-test 100/100
+Split: train 720, validation 80, test 200, overlap 0
+Majority-bit baseline: train 51.50%, test 50.00% (p vs 0.5 = 0.916)
+
+Generalisation (seed 0), unseen test keys:
+  d=16   bit-acc 50.00% (p vs 0.5 0.848, p vs majority 0.951)  exact 0  DFR 100%  lossless VAE+Delta rho 0.984 (ideal) / 0.975 (lzma)
+  d=32   bit-acc 49.98% (p 0.132 / 0.254)                      exact 0  DFR 100%  rho 0.974 / 0.965
+  d=64   bit-acc 50.00% (p 0.945 / 0.901)                      exact 0  DFR 100%  rho 0.955 / 0.946
+  d=128  bit-acc 49.97% (p 0.038 / 0.123)                      exact 0  DFR 100%  rho 0.919 / 0.910
+  training keys: exact 0 for all d
+Per-key (R=256, 50 epochs), 1 key: exact 4/4 latent sizes; honest ratio (incl. decoder) 6.05e-05 at d=128
+Generic compressors: gzip 0.9963, bzip2 0.9246 +/- 0.0020, lzma 0.9903
+Timing (n=50): enc 0.258 +/- 0.130 ms; enc+VAE 13.74 +/- 3.14 ms; dec 2.83 +/- 1.10 ms; keygen 81.0 +/- 23.4 ms (n=10)
+Leakage probe: 49.83% +/- 0.31 (majority baseline 49.96%), exact private-key recovery 0
+
+Conclusion: same as toy keys -> generalisation fails at 19x larger key size (answers R2-Q7).
