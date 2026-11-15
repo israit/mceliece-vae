@@ -121,12 +121,17 @@ The per-key (memorization) regime is in `table_per_key.csv` of `toy_sgp` and of 
 |---|---|---|---|
 | Key-generation profile; VAE generation of S and P | `python vae_keygen_SP_v1.py --out ../results/keygen_SP_v1` | `keygen_SP_v1` | |
 | VAE-guided Goppa polynomials; weak-generator detection | `python vae_goppa_detect_v1.py --out ../results/goppa_detect_v1` | `goppa_detect_v1` | about 63 min |
-| Stronger detector | `python vae_goppa_detect_v1.py --skip-goppa --det-beta 0.1 --det-epochs 200 --det-families correct seed_bits shared_code_biased_S shared_code_uniform_S shared_code_vae_S random_code_vae_S --seed-bits 8 10 --bias-levels 0.02 0.1 --out ../results/goppa_detect_v1_strong` | `goppa_detect_v1_strong` | about 25 min |
+| Stronger detector | `python vae_goppa_detect_v1.py --skip-goppa --det-beta 0.1 --det-epochs 200 --det-families correct seed_bits shared_code_biased_S shared_code_uniform_S shared_code_vae_S random_code_vae_S --seed-bits 8 10 --bias-levels 0.02 0.1 --key-seed 1 --out ../results/goppa_detect_v1_strong` | `goppa_detect_v1_strong` | about 10 min |
 | Goppa vs random codes; health-check false alarms | `python vae_distinguish_health_v1.py --out ../results/distinguish_health_v1` | `distinguish_health_v1` | about 15 min |
 
 Times are for a 12-thread Intel CPU; the Goppa and detection scripts run in parallel (`--workers`, default:
 number of CPUs minus one). Add `--quick` to `vae_goppa_detect_v1.py` or `vae_distinguish_health_v1.py`
 for a short smoke test.
+
+`--key-seed` (added in version 1.1 of `vae_goppa_detect_v1.py`) draws the keys of every generator family, and the
+VAE-generated S matrices, from a fixed seed, independently of the preceding steps and of `--workers`, and turns off
+oneDNN, so that the stronger detector gives identical results when it is run again on the same machine. Without
+the option the script behaves as version 1, which produced `goppa_detect_v1`.
 
 ### Figures
 
