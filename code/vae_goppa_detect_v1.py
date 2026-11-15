@@ -3,8 +3,9 @@ Two further uses of a VAE in McEliece key generation (follow-up to vae_keygen_SP
 
 Part G  VAE-guided Goppa polynomial generation.
         Generating the irreducible Goppa polynomial g(x) is the most expensive step of our key
-        generation (48-75 %), because random monic polynomials of degree t are tested until one is
-        irreducible (about t tries). Can a VAE trained on irreducible polynomials propose candidates
+        generation for the toy parameters and mceliece348864 (48-75 %; for the 1978 parameters the
+        product S*G*P costs more), because random monic polynomials of degree t are tested until one
+        is irreducible (about t tries). Can a VAE trained on irreducible polynomials propose candidates
         that are irreducible more often, so that fewer tests are needed? Measured: hit rate against
         uniform sampling and against a cheap non-learned filter (no root in GF(2^m)), time per
         irreducible polynomial, diversity (unique outputs, min-entropy, memorised training polynomials),
@@ -22,6 +23,7 @@ Reuses the McEliece and VAE code of mceliece_vae_revised_v4.py (same folder).
 
 Usage:
     python vae_goppa_detect_v1.py --out ../results/goppa_detect_v1
+    python vae_goppa_detect_v1.py --skip-goppa ... --key-seed 1 --out ...   # keys drawn from a fixed seed
     python vae_goppa_detect_v1.py --quick --out smoke        # small smoke test
 """
 
@@ -31,6 +33,7 @@ import json
 import os
 import sys
 import time
+import zlib
 from concurrent.futures import ProcessPoolExecutor
 from math import log2
 
@@ -38,7 +41,7 @@ import numpy as np
 
 import mceliece_vae_revised_v4 as mv
 
-VERSION = "goppa_detect_v1"
+VERSION = "goppa_detect_v1.1"   # v1.1: --key-seed (fixed seed for the keys of Part D)
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -388,6 +391,9 @@ def detection_tests(Xtr, Xte, n, vae_pred):
             "pooled_row_rank": int(rank), "row_rank_full": int(n)}
 
 
+KEY_CHUNK = 100   # keys per job when --key-seed is set (fixed, so the keys do not depend on --workers)
+
+
 def run_detection(args, rng, g_lists, S_lists):
     m, n, t = 6, 64, 4
     families = [("correct", None, "Correct key generation")]
@@ -409,9 +415,18 @@ def run_detection(args, rng, g_lists, S_lists):
         families = [f_ for f_ in families if f_[0] in args.det_families]
     for fam, param, label in families:
         t0 = time.perf_counter()
-        per = int(np.ceil(total / args.workers))
-        jobs = [(fam, param, per, int(s), m, n, t, extra_common, w * per)
-                for w, s in enumerate(rng.integers(0, 2**63, size=args.workers))]
+        if args.key_seed is None:
+            # v1 behaviour: the key seeds come from the shared generator rng, so they depend on everything
+            # drawn from rng before (e.g. the sampling of VAE-generated S) and on the number of workers
+            per = int(np.ceil(total / args.workers))
+            jobs = [(fam, param, per, int(s), m, n, t, extra_common, w * per)
+                    for w, s in enumerate(rng.integers(0, 2**63, size=args.workers))]
+        else:
+            # fixed seed per generator family, independent of rng, of the other families and of --workers
+            per = KEY_CHUNK
+            ss = np.random.SeedSequence([args.key_seed, zlib.crc32(f"{fam}:{param}".encode())])
+            jobs = [(fam, param, per, int(c.generate_state(1, dtype=np.uint64)[0]), m, n, t, extra_common, j * per)
+                    for j, c in enumerate(ss.spawn(int(np.ceil(total / per))))]
         X = np.concatenate(parallel(_family_keys, jobs, args.workers))[:total]
         Xtr, Xte = X[:args.det_train], X[args.det_train:]
         vae, loss = train_vae(Xtr, args.det_latent, [256, 128],
@@ -478,6 +493,9 @@ def main():
     ap.add_argument("--det-families", nargs="*", default=None, help="restrict Part D to these families")
     ap.add_argument("--seed-bits", type=int, nargs="+", default=[8, 10, 12, 16])
     ap.add_argument("--bias-levels", type=float, nargs="+", default=[0.02, 0.05, 0.1, 0.25, 0.5])
+    ap.add_argument("--key-seed", type=int, default=None,
+                    help="draw the keys of Part D (and the VAE-generated S) from this fixed seed, independently of "
+                         "the other parts and of --workers; also turns off oneDNN for run-to-run identical training")
     ap.add_argument("--out", default="results_goppa_detect_v1")
     args = ap.parse_args()
 
@@ -496,6 +514,9 @@ def main():
         args.base_samples = {"toy": 40000, "small": 20000, "medium": 8000, "mceliece348864": 4000}
         args.e2e_sets = [("toy", 6, 64, 4), ("small", 8, 256, 8)]
 
+    if args.key_seed is not None:
+        # oneDNN may change the floating-point order between runs; TensorFlow is imported only later
+        os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")
     os.makedirs(args.out, exist_ok=True)
     rng = np.random.default_rng(args.seed)
     results = {"script_version": VERSION, "config": {k_: v for k_, v in vars(args).items()},
@@ -522,7 +543,8 @@ def main():
             json.dump(results, f, indent=2, default=float)
 
     if not args.skip_detect:
-        S_lists = {"S": vae_S_list(args, rng, 40, args.det_train + args.det_test)}
+        rng_S = rng if args.key_seed is None else np.random.default_rng([args.key_seed, 0x5])
+        S_lists = {"S": vae_S_list(args, rng_S, 40, args.det_train + args.det_test)}
         print(f"[D] {len(S_lists['S'])} VAE-generated S matrices ({len({s.tobytes() for s in S_lists['S']})} distinct)")
         rows = run_detection(args, rng, g_lists, S_lists)
         results["detection"] = rows
