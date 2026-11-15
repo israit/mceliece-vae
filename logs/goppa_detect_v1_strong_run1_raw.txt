@@ -1,0 +1,14 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+goppa_detect_v1.1  workers=11
+[D] 1200 VAE-generated S matrices (646 distinct)
+[D] Correct key generation                   VAE 0.5034 vs majority 0.5000 (p=0.00066); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=True  [215 s]
+[D] 8-bit seed                               VAE 0.9664 vs majority 0.5233 (p=0); exact 0.910 (novel 0.000); dup 0.995; rank 64/64; flag=True  [223 s]
+[D] 10-bit seed                              VAE 0.6356 vs majority 0.5079 (p=0); exact 0.210 (novel 0.000); dup 0.605; rank 64/64; flag=True  [209 s]
+[D] Shared code and P, S with p=0.02         VAE 0.8581 vs majority 0.8815 (p=2.8e-271); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [199 s]
+[D] Shared code and P, S with p=0.1          VAE 0.6735 vs majority 0.6960 (p=5.5e-133); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [201 s]
+[D] Shared code and P, uniform S             VAE 0.5033 vs majority 0.4991 (p=1.5e-05); exact 0.000 (novel 0.000); dup 0.000; rank 40/64; flag=True  [215 s]
+[D] Shared code and P, VAE-generated S       VAE 0.9662 vs majority 0.9006 (p=0); exact 0.450 (novel 0.000); dup 0.465; rank 40/64; flag=True  [232 s]
+[D] Random code, VAE-generated S             VAE 0.5215 vs majority 0.5322 (p=3.6e-27); exact 0.000 (novel 0.000); dup 0.000; rank 64/64; flag=True  [232 s]
+Total 31.2 min. All results written to results/goppa_detect_v1_strong

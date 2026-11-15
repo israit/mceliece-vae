@@ -1,0 +1,11 @@
+rows: 8 8
+IDENTICAL (except run time)
+
+Correct key generation                   VAE  50.34  exact   0.0  novel 0.0  maj  50.00  dup   0.0  rank 64  p_half 1.6e-06  p_maj 0.00066
+8-bit seed                               VAE  96.64  exact  91.0  novel 0.0  maj  52.33  dup  99.5  rank 64  p_half 0  p_maj 0
+10-bit seed                              VAE  63.56  exact  21.0  novel 0.0  maj  50.79  dup  60.5  rank 64  p_half 0  p_maj 0
+Shared code and P, S with p=0.02         VAE  85.81  exact   0.0  novel 0.0  maj  88.15  dup   0.0  rank 40  p_half 0  p_maj 2.8e-271
+Shared code and P, S with p=0.1          VAE  67.35  exact   0.0  novel 0.0  maj  69.60  dup   0.0  rank 40  p_half 0  p_maj 5.5e-133
+Shared code and P, uniform S             VAE  50.33  exact   0.0  novel 0.0  maj  49.91  dup   0.0  rank 40  p_half 1.9e-06  p_maj 1.5e-05
+Shared code and P, VAE-generated S       VAE  96.62  exact  45.0  novel 0.0  maj  90.06  dup  46.5  rank 40  p_half 0  p_maj 0
+Random code, VAE-generated S             VAE  52.15  exact   0.0  novel 0.0  maj  53.22  dup   0.0  rank 64  p_half 1.1e-208  p_maj 3.6e-27
