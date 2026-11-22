@@ -29,6 +29,7 @@ code/
   vae_keygen_SP_v1.py            key-generation profile; VAE generation of S and P
   vae_goppa_detect_v1.py         VAE-guided Goppa polynomial generation; VAE as a weak-generator detector
   vae_distinguish_health_v1.py   Goppa vs random codes; false-alarm rate of the key-generator health check
+  control_random_matrices.py     control: the same autoencoders on uniformly random 40 x 64 matrices
   make_figures_v3_1.py           Figures A-F (from results/compression_v2_v3)
   make_figures_v4.py             helper module imported by make_figures_v5.py
   make_figures_v5.py             Figures G, H, J and K
@@ -43,6 +44,7 @@ results/
   goppa_detect_v1/
   goppa_detect_v1_strong/
   distinguish_health_v1/
+  control_random_matrices/        run on Google Colab
 logs/                            console output of every run (*_raw.txt) and short summaries (*_summary.txt)
 requirements.txt
 LICENSE                          MIT license for the code
@@ -123,6 +125,7 @@ The per-key (memorization) regime is in `table_per_key.csv` of `toy_sgp` and of 
 | VAE-guided Goppa polynomials; weak-generator detection | `python vae_goppa_detect_v1.py --out ../results/goppa_detect_v1` | `goppa_detect_v1` | about 63 min |
 | Stronger detector | `python vae_goppa_detect_v1.py --skip-goppa --det-beta 0.1 --det-epochs 200 --det-families correct seed_bits shared_code_biased_S shared_code_uniform_S shared_code_vae_S random_code_vae_S --seed-bits 8 10 --bias-levels 0.02 0.1 --key-seed 1 --out ../results/goppa_detect_v1_strong` | `goppa_detect_v1_strong` | about 10 min |
 | Goppa vs random codes; health-check false alarms | `python vae_distinguish_health_v1.py --out ../results/distinguish_health_v1` | `distinguish_health_v1` | about 15 min |
+| Control: autoencoders on uniformly random matrices (reviewer comment on R4) | `python control_random_matrices.py --out ../results/control_random_matrices` | `control_random_matrices` | about 7 min (Google Colab CPU) |
 
 Times are for a 12-thread Intel CPU; the Goppa and detection scripts run in parallel (`--workers`, default:
 number of CPUs minus one). Add `--quick` to `vae_goppa_detect_v1.py` or `vae_distinguish_health_v1.py`
